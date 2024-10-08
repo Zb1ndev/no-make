@@ -74,7 +74,11 @@ NOB_macros GetMacros(char* _workingPath) {
 }
 char* GenerateCommand(char* _template, NOB_macros _macros) {
 
-    size_t _size = strlen(_template) + 200; // Find Actual Largest Posible Size;
+
+    size_t _size = strlen(_template) + 1;
+    for (size_t i = 0; i < _macros.maxIndex; i++)
+        _size += strlen(_macros.content[i].value);
+    
     char* _command = malloc(_size); 
     memset(_command, 0, _size);
 
