@@ -102,7 +102,6 @@ char* GenerateCommand(char* _template, NOB_macros _macros) {
     return _command;
 
 }
-
 int main(int argc, char** argv) {
 
     #ifdef DEBUG
