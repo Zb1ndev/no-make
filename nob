@@ -1,0 +1,5 @@
+#source : src/nob.c
+#dir : ./builds/nob
+
+build : gcc source -o dir
+run : ./builds/nob
