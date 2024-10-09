@@ -5,16 +5,10 @@
 
 // #define DEBUG
 
-#ifdef DEBUG
-    #define NOBFILE "/nob"
-#else
-    #define NOBFILE "/nob"
-#endif
-
 char* GetBuildTemplate(char* _tag, char* _workingPath) {
 
     char* _fileDir = malloc(strlen(NOB_getcwd()) + 9);
-    sprintf(_fileDir, "%s%s", NOB_getcwd(), NOBFILE);
+    sprintf(_fileDir, "%s%s", NOB_getcwd(), "/nob");
     
     NOB_lines _lines;
     NOB_fgetl(&_lines, _fileDir);
@@ -45,7 +39,7 @@ char* GetBuildTemplate(char* _tag, char* _workingPath) {
 NOB_macros GetMacros(char* _workingPath) {
 
     char* _fileDir = malloc(strlen(NOB_getcwd()) + 9);
-    sprintf(_fileDir, "%s%s", NOB_getcwd(), NOBFILE);
+    sprintf(_fileDir, "%s%s", NOB_getcwd(), "/nob");
     
     NOB_lines _lines;
     NOB_fgetl(&_lines, _fileDir);
