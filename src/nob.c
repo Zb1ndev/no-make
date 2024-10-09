@@ -6,7 +6,7 @@
 // #define DEBUG
 
 #ifdef DEBUG
-    #define NOBFILE "/testfile"
+    #define NOBFILE "/nob"
 #else
     #define NOBFILE "/nob"
 #endif
@@ -110,9 +110,9 @@ int main(int argc, char** argv) {
 
     #ifdef DEBUG
 
-        char* _template = GetBuildTemplate("build", NOB_getcwd());
+        char* _template = GetBuildTemplate("b", NOB_getcwd());
         char* _command = GenerateCommand(_template, GetMacros(NOB_getcwd()));
-        printf("\n%s", _command);
+        printf("%s\n", _command);
 
     #else
     

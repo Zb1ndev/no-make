@@ -65,28 +65,6 @@ size_t NOB_fsizeof(char* _fileDir) {
     return _length;
     
 }
-void NOB_fgetl(NOB_lines* _dest, char* _fileDir) {
-
-    FILE* _file = fopen(_fileDir, "r");
-    NOB_assert((_file == NULL),"[ERROR] File Not Found. \n");
-
-    size_t _index = 0;
-    size_t _size = NOB_fsizeof(_fileDir) + 1;
-    char* _buffer = malloc(_size);
-    _dest->content = malloc(_size * sizeof(NOB_line));
-
-    NOB_assert((_size <= 1), "[ERROR] File is Empty.");
-
-    while (fgets(_buffer, _size, _file) != NULL) {
-        NOB_strmov(_dest->content[_index].content, _buffer);
-        _dest->content->index = _index++;
-    }
-    _dest->maxIndex = _index;
-        
-    free(_buffer);
-    fclose(_file);
-
-}
 char* NOB_remchr(char* _src, char _delimiter) {
 
     char* _ret; 
@@ -113,6 +91,28 @@ char* NOB_remchr(char* _src, char _delimiter) {
 
     _ret[(strlen(_src)-1) - (_stringLength-1)] = '\0';
     return _ret;
+
+}
+void NOB_fgetl(NOB_lines* _dest, char* _fileDir) {
+
+    FILE* _file = fopen(_fileDir, "r");
+    NOB_assert((_file == NULL),"[ERROR] File Not Found. \n");
+
+    size_t _index = 0;
+    size_t _size = NOB_fsizeof(_fileDir) + 1;
+    char* _buffer = malloc(_size);
+    _dest->content = malloc(_size * sizeof(NOB_line));
+
+    NOB_assert((_size <= 1), "[ERROR] File is Empty.");
+
+    while (fgets(_buffer, _size, _file) != NULL) {
+        NOB_strmov(_dest->content[_index].content, NOB_remchr(_buffer, '\n'));
+        _dest->content->index = _index++;
+    }
+    _dest->maxIndex = _index;
+        
+    free(_buffer);
+    fclose(_file);
 
 }
 
