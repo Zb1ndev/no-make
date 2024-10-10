@@ -4,4 +4,4 @@ has basically nothing to do with the way Tsoding's nob works, "nob" sounds funny
 
 ## Instructions
 - Define ``` Macros ``` with ``` # ``` : ``` #macro : macro content ```
-- Define Commands with a simple key, value syntax ``` command : gcc main.c -o main ```
+- Define ``` Commands ``` with a simple key, value syntax ``` command : gcc main.c -o main ```
