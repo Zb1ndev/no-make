@@ -76,7 +76,7 @@ char* GenerateCommand(char* _template, NOB_macros _macros) {
     char* _command = malloc(_size); 
     memset(_command, 0, _size);
 
-    __uint8_t _skip = 0;
+    size_t _skip = 0;
     char* _buffer = strtok(_template, " ");
     while (_buffer != NULL) {
         
