@@ -1,2 +1,2 @@
-gcc src/nob.c -o ./builds/nob
-cp ./builds/nob /bin/nob
+gcc src/nom.c -o ./builds/nom
+cp ./builds/nom /bin/nom

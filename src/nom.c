@@ -7,14 +7,14 @@
 
 char* GetBuildTemplate(char* _tag, char* _workingPath) {
 
-    char* _fileDir = malloc(strlen(NOB_getcwd()) + 9);
-    sprintf(_fileDir, "%s%s", NOB_getcwd(), "/nob");
+    char* _fileDir = malloc(strlen(NOM_getcwd()) + 9);
+    sprintf(_fileDir, "%s%s", NOM_getcwd(), "/nom");
     
-    NOB_lines _lines;
-    NOB_fgetl(&_lines, _fileDir);
+    NOM_lines _lines;
+    NOM_fgetl(&_lines, _fileDir);
 
     size_t _templateIndex = 0;
-    NOB_strkvp* _templates = malloc(sizeof(NOB_strkvp) * _lines.maxIndex);
+    NOM_strkvp* _templates = malloc(sizeof(NOM_strkvp) * _lines.maxIndex);
 
     for (size_t l = 0; l < _lines.maxIndex; l++) {
         if (strchr(_lines.content[l].content, '#') == NULL && strchr(_lines.content[l].content, ':') != NULL) {
@@ -28,25 +28,25 @@ char* GetBuildTemplate(char* _tag, char* _workingPath) {
         }
     }
     for (size_t t = 0; t < _templateIndex; t++) {
-        if (strcmp(_tag, NOB_remchr(_templates[t].key, ' ')) == 0) { 
+        if (strcmp(_tag, NOM_remchr(_templates[t].key, ' ')) == 0) { 
             return _templates[t].value; 
         }
     }
 
-    NOB_assert(1,"[ERROR] No Command with the provided tag was found.");
+    NOM_assert(1,"[ERROR] No Command with the provided tag was found.");
 
 }
-NOB_macros GetMacros(char* _workingPath) {
+NOM_macros GetMacros(char* _workingPath) {
 
-    char* _fileDir = malloc(strlen(NOB_getcwd()) + 9);
-    sprintf(_fileDir, "%s%s", NOB_getcwd(), "/nob");
+    char* _fileDir = malloc(strlen(NOM_getcwd()) + 9);
+    sprintf(_fileDir, "%s%s", NOM_getcwd(), "/nom");
     
-    NOB_lines _lines;
-    NOB_fgetl(&_lines, _fileDir);
+    NOM_lines _lines;
+    NOM_fgetl(&_lines, _fileDir);
 
-    NOB_macros _macros;
+    NOM_macros _macros;
     size_t _macroIndex = 0;
-    _macros.content = malloc(_lines.maxIndex * sizeof(NOB_strkvp));
+    _macros.content = malloc(_lines.maxIndex * sizeof(NOM_strkvp));
 
     for (size_t l = 0; l < _lines.maxIndex; l++) {
         if (strchr(_lines.content[l].content, '#') != NULL) {
@@ -66,7 +66,7 @@ NOB_macros GetMacros(char* _workingPath) {
     return _macros;
 
 }
-char* GenerateCommand(char* _template, NOB_macros _macros) {
+char* GenerateCommand(char* _template, NOM_macros _macros) {
 
 
     size_t _size = strlen(_template) + 1;
@@ -80,11 +80,11 @@ char* GenerateCommand(char* _template, NOB_macros _macros) {
     char* _buffer = strtok(_template, " ");
     while (_buffer != NULL) {
         
-        _buffer = NOB_remchr(_buffer, '\n');
+        _buffer = NOM_remchr(_buffer, '\n');
 
         for (size_t i = 0; i < _macros.maxIndex; i++) {
-            if (strcmp(_buffer, NOB_remchr(_macros.content[i].key, ' ')) == 0) {
-                sprintf(_command, "%s %s", _command, NOB_remchr(_macros.content[i].value, '\n'));
+            if (strcmp(_buffer, NOM_remchr(_macros.content[i].key, ' ')) == 0) {
+                sprintf(_command, "%s %s", _command, NOM_remchr(_macros.content[i].value, '\n'));
                 _skip++;
                 break;
             }
@@ -104,16 +104,16 @@ int main(int argc, char** argv) {
 
     #ifdef DEBUG
 
-        char* _template = GetBuildTemplate("b", NOB_getcwd());
-        char* _command = GenerateCommand(_template, GetMacros(NOB_getcwd()));
+        char* _template = GetBuildTemplate("b", NOM_getcwd());
+        char* _command = GenerateCommand(_template, GetMacros(NOM_getcwd()));
         printf("%s\n", _command);
 
     #else
     
-        NOB_assert((argv[1] == NULL),"[ERROR] Please Enter and Argument. \n");
-        char* _template = GetBuildTemplate(argv[1], NOB_getcwd());
-        char* _command = GenerateCommand(_template, GetMacros(NOB_getcwd()));
-        NOB_assert((_command == NULL),"[ERROR] Generated Command was Invalid. \n");
+        NOM_assert((argv[1] == NULL),"[ERROR] Please Enter and Argument. \n");
+        char* _template = GetBuildTemplate(argv[1], NOM_getcwd());
+        char* _command = GenerateCommand(_template, GetMacros(NOM_getcwd()));
+        NOM_assert((_command == NULL),"[ERROR] Generated Command was Invalid. \n");
         system(_command);
 
     #endif
