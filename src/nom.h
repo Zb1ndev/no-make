@@ -1,5 +1,5 @@
-#ifndef NOB_H
-#define NOB_H
+#ifndef NOM_H
+#define NOM_H
 
 #include <stdlib.h>
 #include <stdio.h>
