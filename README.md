@@ -1,5 +1,5 @@
 # No Make
-A horrific build tool named after not being CMake.
+A horrific build tool named after not being Make.
 
 ## Instructions
 - Define ` Macros ` with ` # ` : ` #macro : macro content `
